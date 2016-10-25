@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>xunit.parallel</id>
+    <version>1.0.0-pre7</version>
+    <title>xUnit.net [Parallel Test Method Execution]</title>
+    <authors>Thomas Galliker</authors>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/thomasgalliker/xunit.parallel</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/thomasgalliker/xunit.parallel/master/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>xunit.parallel provides an xunit test framework which enables per-method parallelism.</summary>
+    <description>xunit.parallel provides an xunit test framework which enables per-method parallelism.</description>
+    <tags>
+      xunit parallel
+    </tags>
+    <releaseNotes>
+      1.0.0
+      - Initial release
+
+    </releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <language>en-US</language>
+    <frameworkAssemblies/>
+    <dependencies>
+      <group>
+        <dependency id="xunit" version="2.1.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!--.Net 4.5-->
+    <file src="..\xunit.parallel\bin\Release\xunit.parallel.dll" target="lib\net45\xunit.parallel.dll" />
+    <file src="..\xunit.parallel\bin\Release\xunit.parallel.pdb" target="lib\net45\xunit.parallel.pdb" />
+    <file src="..\xunit.parallel\bin\Release\xunit.parallel.xml" target="lib\net45\xunit.parallel.xml" />
+
+    <file src="content\Properties\xunit.assembly.config.cs.pp" target="content\Properties\xunit.assembly.config.cs.pp" />
+    <file src="tools\init.ps1" target="tools\init.ps1" />
+    <file src="tools\install.ps1" target="tools\install.ps1" />
+    <file src="tools\uninstall.ps1" target="tools\uninstall.ps1" />
+  </files>
+</package>
