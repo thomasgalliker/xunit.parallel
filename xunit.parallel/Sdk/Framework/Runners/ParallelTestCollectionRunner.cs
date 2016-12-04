@@ -46,26 +46,52 @@ namespace Xunit.Parallel.Sdk.Framework.Runners
                 var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
                 taskRunner = code => Task.Factory.StartNew(code, cancellationTokenSource.Token, TaskCreationOptions.DenyChildAttach | TaskCreationOptions.HideScheduler, scheduler).Unwrap();
             }
-            else taskRunner = code => Task.Run(code, cancellationTokenSource.Token);
+            else
+            {
+                taskRunner = code => Task.Run(code, cancellationTokenSource.Token);
+            }
 
-            var tasks =
-                this.TestCases.Select(
-                    testCase =>
-                    taskRunner(
-                        () =>
+            Task<RunSummary>[] tasks;
+            if (this.TestCollection is DefaultTestCollection)
+            {
+                // If TestCollection is a DefaultTestCollection,
+                // we parallelize each test case:
+                tasks =
+                    this.TestCases.Select(
+                        testCase =>
+                        taskRunner(
+                            () =>
+                            new ParallelTestClassRunner(
+                                testClass,
+                                @class,
+                                new List<IXunitTestCase> { testCase },
+                                this.DiagnosticMessageSink,
+                                this.MessageBus,
+                                this.TestCaseOrderer,
+                                new ExceptionAggregator(this.Aggregator),
+                                this.CancellationTokenSource,
+                                this.CollectionFixtureMappings).RunAsync())).ToArray();
+            }
+            else
+            {
+                // If TestCollection is an intentionally defined collection
+                // we must not parallelize the affected test cases:
+                tasks = new[]
                             {
-                                return
+                                taskRunner(
+                                    () =>
                                     new ParallelTestClassRunner(
                                         testClass,
                                         @class,
-                                        new List<IXunitTestCase> { testCase },
+                                        this.TestCases,
                                         this.DiagnosticMessageSink,
                                         this.MessageBus,
                                         this.TestCaseOrderer,
                                         new ExceptionAggregator(this.Aggregator),
                                         this.CancellationTokenSource,
-                                        this.CollectionFixtureMappings).RunAsync();
-                            })).ToArray();
+                                        this.CollectionFixtureMappings).RunAsync())
+                            };
+            }
 
             var summaries = new List<RunSummary>();
 

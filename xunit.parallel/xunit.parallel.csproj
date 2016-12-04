@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sdk\DefaultTestCollection.cs" />
+    <Compile Include="Sdk\CollectionPerMethodTestCollectionFactory.cs" />
     <Compile Include="Sdk\Framework\ParallelFactDiscoverer.cs" />
     <Compile Include="Sdk\Framework\ParallelTestCase.cs" />
     <Compile Include="Sdk\Framework\ParallelTestFramework.cs" />

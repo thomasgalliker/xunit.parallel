@@ -2,69 +2,87 @@
 
 using Xunit;
 
-[assembly: TestFramework("xunit.parallel.Sdk.Framework.ParallelTestFramework", "xunit.parallel")]
-[assembly: CollectionBehavior(DisableTestParallelization = false, MaxParallelThreads = 0)]
-
 namespace xunit.parallel.tests
 {
-    public class ParallelTests
+    public class ParallelUnitTests
     {
         [Fact]
-        public void FactMethodName1()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName1()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName2()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName2()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName3()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName3()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName4()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName4()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName5()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName5()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName6()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName6()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName7()
+        [Trait("Category", "UnitTest")]
+        public void UnitTestFactMethodName7()
+        {
+            Thread.Sleep(1000);
+        }
+    }
+
+    [Collection("IntegrationTests")]
+    public class ParallelIntegrationTests
+    {
+        [Fact]
+        [Trait("Category", "IntegrationTest")]
+        public void IntegrationTestFactMethod1()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName8()
+        [Trait("Category", "IntegrationTest")]
+        public void IntegrationTestFactMethod2()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName9()
+        [Trait("Category", "IntegrationTest")]
+        public void IntegrationTestFactMethod3()
         {
             Thread.Sleep(1000);
         }
 
         [Fact]
-        public void FactMethodName10()
+        [Trait("Category", "IntegrationTest")]
+        public void IntegrationTestFactMethod4()
         {
             Thread.Sleep(1000);
         }
