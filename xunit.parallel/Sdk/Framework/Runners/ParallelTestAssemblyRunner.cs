@@ -27,47 +27,13 @@ namespace Xunit.Parallel.Sdk.Framework.Runners
         {
         }
 
-        //protected override async Task<RunSummary> RunTestCollectionsAsync(IMessageBus messageBus, CancellationTokenSource cancellationTokenSource)
-        //{
-        //    this.originalSyncContext = SynchronizationContext.Current;
-        //    if (this.disableParallelization)
-        //        return await base.RunTestCollectionsAsync(messageBus, cancellationTokenSource);
+        /// <inheritdoc/>
+        protected override string GetTestFrameworkEnvironment()
+        {
+            var environment = base.GetTestFrameworkEnvironment().Replace("collection-per-class", "collection-per-method");
+            return environment;
+        }
 
-        //    this.SetupSyncContext(2);
-        //    Func<Func<Task<RunSummary>>, Task<RunSummary>> taskRunner;
-        //    if (SynchronizationContext.Current != null)
-        //    {
-        //        TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-        //        taskRunner = (Func<Func<Task<RunSummary>>, Task<RunSummary>>)(code => Task.Factory.StartNew<Task<RunSummary>>(code, cancellationTokenSource.Token, TaskCreationOptions.DenyChildAttach | TaskCreationOptions.HideScheduler, scheduler).Unwrap<RunSummary>());
-        //    }
-        //    else
-        //        taskRunner = (Func<Func<Task<RunSummary>>, Task<RunSummary>>)(code => Task.Run<RunSummary>(code, cancellationTokenSource.Token));
-        //    Task<RunSummary>[] array = this.OrderTestCollections().Select<Tuple<ITestCollection, List<IXunitTestCase>>, Task<RunSummary>>((Func<Tuple<ITestCollection, List<IXunitTestCase>>, Task<RunSummary>>)(collection => taskRunner((Func<Task<RunSummary>>)(() => this.RunTestCollectionAsync(messageBus, collection.Item1, (IEnumerable<IXunitTestCase>)collection.Item2, cancellationTokenSource))))).ToArray<Task<RunSummary>>();
-        //    List<RunSummary> summaries = new List<RunSummary>();
-        //    Task<RunSummary>[] taskArray = array;
-        //    for (int index = 0; index < taskArray.Length; ++index)
-        //    {
-        //        Task<RunSummary> task = taskArray[index];
-        //        try
-        //        {
-        //            List<RunSummary> runSummaryList = summaries;
-        //            RunSummary runSummary = await task;
-        //            runSummaryList.Add(runSummary);
-        //            runSummaryList = (List<RunSummary>)null;
-        //        }
-        //        catch (TaskCanceledException ex)
-        //        {
-        //        }
-        //    }
-        //    taskArray = (Task<RunSummary>[])null;
-        //    return new RunSummary()
-        //    {
-        //        Total = summaries.Sum<RunSummary>((Func<RunSummary, int>)(s => s.Total)),
-        //        Failed = summaries.Sum<RunSummary>((Func<RunSummary, int>)(s => s.Failed)),
-        //        Skipped = summaries.Sum<RunSummary>((Func<RunSummary, int>)(s => s.Skipped))
-        //    };
-        //}
-        /// <inheritdoc />
         /// <inheritdoc />
         protected override Task<RunSummary> RunTestCollectionAsync(
             IMessageBus messageBus,
