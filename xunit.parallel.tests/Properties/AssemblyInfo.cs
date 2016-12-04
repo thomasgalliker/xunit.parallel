@@ -38,7 +38,7 @@ using Xunit;
 // [assembly: AssemblyVersion("1.0.0")]
 
 [assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.0.0-pre8")]
+[assembly: AssemblyFileVersion("1.0.0-pre9")]
 
 [assembly: TestFramework("Xunit.Parallel.Sdk.Framework.ParallelTestFramework", "xunit.parallel")]
 [assembly: CollectionBehavior(DisableTestParallelization = false, MaxParallelThreads = 3)]
